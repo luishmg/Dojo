@@ -9,38 +9,29 @@ sqrt() { echo "sqrt($1)" | bc ; }
 # Funcao que verifica se o numero e primo
 primo()
 {
-# Verifica se nao e divisivel pelos primeiros numeros primos
-if (( $1 % 2 != 0 )) && \
-   (( $1 % 3 != 0 )) && \
-   (( $1 % 5 != 0 )) && \
-   (( $1 % 7 != 0 ));
-then
-    # Comeca em 11, pois, e o proximo numero primo apos o numero 7
-    contador=11
-    # Verificacao nao precisa ser maior que a raiz do numero
-    local numberSqrt=`sqrt $1`
-    # Continua a verificacao ate o valor superar a raiz do valor
-    while (( contador <=  $numberSqrt ));
-    do
-        if (( $1 % contador == 0));# Verifica se e primo
-        then
-            echo "false" # Retorna o valor falso para a funcao
-            exit 1 # Saida com erro
-        fi
-    contador=$(( contador + 2 ))# Evita numeros pares
-    done
-    echo "true" # Retorna o valor verdadeiro para a funcao
-    exit 0 # Saida com sucesso
+contador=13 # Numero primo de valor alto
+local numberSqrt=`sqrt $1`
 # Diz que o numero e primo se ele for o numero 2,3,5 ou 7
-elif  (( $1 == 2 )) || (( $1 == 3 )) ||\
-      (( $1 == 5 )) || (( $1 == 7 ));
+if  (( $1 == 2 )) || (( $1 == 3 )) || \
+    (( $1 == 5 )) || (( $1 == 7 )) || \
+    (( $1 == 11 ));
 then
     echo "true" # Retorna o valor verdadeiro para a funcao
     exit 0 # Saida com sucesso
-else
+fi
+while (( contador <=  $numberSqrt ));
+do
+if (( $1 % 2 == 0 )) || (( $1 % 3 == 0 )) || \
+   (( $1 % 5 == 0 )) || (( $1 % 7 == 0 )) || \
+   (( $1 % 11 == 0 )) || (( $1 % contador == 0 ));
+then
     echo "false" # Retorna o valor falso para a funcao
     exit 1 # Saida com erro
 fi
+contador=$(( $contador + 2 ))
+done
+echo "true" # Retorna o valor verdadeiro para a funcao
+exit 0 # Saida com sucesso
 }
 
 verify=2 # Inicia verificacao para a divisao pelo numero 2
