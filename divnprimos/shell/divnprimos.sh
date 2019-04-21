@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Solicita que o usuario forneca um numero
 read -p "Select a selectedNumber: " selectedNumber
